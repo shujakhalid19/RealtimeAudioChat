@@ -1,0 +1,336 @@
+body{
+    background-color:#111;
+    color:#fff;
+}
+.full-h{
+    height:100vh;
+}
+
+.b{
+    font-weight: bold;
+}
+
+.bd-rt{
+    border-right: 1px solid;
+}
+
+.bd-rt{
+    border-color: #303030;
+}
+
+.bg-grey{
+    background-color: #202020;
+}
+
+.bg-dark{
+    background-color: #222;
+}
+
+.bg-drgrey{
+    background-color: #333;
+}
+
+.bg-input{
+    border:none;
+    background-color:#404040;
+    color:#fff;
+}
+
+
+.bg-select option {
+    background-color:#e6e6fa51;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+
+.btn-pill{
+background-color: transparent;
+border:2px solid cornflowerblue;
+color:cornflowerblue;
+}
+
+.btn-pill:hover{
+background-color: cornflowerblue;
+border:2px solid #fff;
+color:#fff;
+}
+
+.f-10{
+    font-size: 10px;
+}
+
+.f-12{
+    font-size: 12px;
+}
+
+.f-15{
+font-size: 15px;
+}
+
+.f-17{
+font-size: 17px;
+}
+
+.f-18{
+font-size: 18px;
+}
+
+.f-20{
+font-size: 20px;
+}
+
+.pd-0{
+    padding: 0px;
+}
+
+.pd-5{
+    padding: 5px;
+}
+
+.pd-10{
+    padding: 10px;
+}
+
+.pd-top-10-lt-5{
+    padding: 10px 0px 0px 5px;
+}
+
+.pd-top-10{
+    padding-top: 10px;
+}
+
+.pd-top-20{
+    padding-top: 10px;
+}
+
+
+.pd-lt-10{
+    padding-left:10px;
+}
+
+.pd-lt-20{
+    padding-left:20px;
+}
+
+.prof{
+    width:40px;height: 40px;object-fit: cover;border-radius: 50%;
+}
+
+.speaking{
+    border:4px dotted cadetblue;
+    
+}
+
+.md-top-20{
+    margin-top: 20px;
+}
+
+.md-top-30{
+    margin-top: 30px;
+}
+
+.md-top-40{
+    margin-top: 40px;
+}
+
+.md-btm-10{
+    margin-bottom: 10px;
+}
+
+.md-btm-20{
+    margin-bottom: 20px;
+}
+
+.md-btm-30{
+    margin-bottom: 30px;
+}
+
+.md-btm-40{
+    margin-bottom: 40px;
+}
+
+.md-lt-20{
+    margin-left: 20px;
+}
+
+.md-rt-10{
+    margin-right:10px;
+}
+
+.bd-curve-14{
+    border-radius: 5px;
+}
+
+/* MODAL */
+/* The Modal (background) */
+
+
+
+.modal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index:1041; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+margin: auto;
+display: block;
+width: 80%;
+max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+margin: auto;
+display: block;
+width: 80%;
+max-width: 700px;
+text-align: center;
+color: #ccc;
+padding: 10px 0;
+height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption { 
+animation-name: zoom;
+animation-duration: 0.4s;
+}
+
+@keyframes zoom {
+from {transform:scale(0)} 
+to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+position: absolute;
+top: 15px;
+right: 35px;
+color: #f1f1f1;
+font-size: 40px;
+font-weight: bold;
+transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+color: #bbb;
+text-decoration: none;
+cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+
+    
+}
+
+.modal-header{
+border-color: #404040;
+}
+/* //MODAL */
+
+/* VOLUME BAR */
+#player {
+    width: 80%;
+    height: 50px;
+    position: relative;
+    margin: 5px auto;
+}
+#player i {
+    position: absolute;
+    margin-top: -6px;
+    color: #666;
+}
+#player i.fa-volume-down {
+    margin-left: -14px;
+}
+#player i.fa-volume-up {
+    margin-right: -12px;
+    right: 0;
+}
+#volume {
+    position: absolute;
+    left: 24px;
+    margin: 0 auto;
+    height: 5px;
+    width: 90%;
+    background: #555;
+    border-radius: 15px;
+}
+#volume .ui-slider-range-min {
+    height: 5px;
+    width: 90%;
+    position: absolute;
+    background: #2ecc71;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+#volume .ui-slider-handle {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background: #fff;
+    position: absolute;
+    margin-left: -8px;
+    margin-top: -8px;
+    cursor: pointer;
+    outline: none;
+}
+/* //VOLUME BAR */
+
+
+/* BADGE */
+.notif .badge {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    padding:4px;
+    border-radius: 50%;
+    font-size: 15px;
+    color: white;
+  }
+  
+  .notif .badge-btm{
+    top: 40px;
+    right: 10px;
+  }
+
+  .notif .badge-rt{
+    top: 0px;
+    left:auto;
+    right:10px;
+    font-size:15px;
+    background-color:#404040;
+    color:#fff;
+  }
+  
+  .notif .badge-top{
+    width: 18px;
+    height: 18px;
+    top: 0px;
+    padding:2px;
+    font-size:10px;
+    background-color: gold;
+    color:darkblue;
+  }
+  
+  .modal-backdrop{
+      background-color: rgba(233,233,233,0);
+  }
+/* //BADGE */

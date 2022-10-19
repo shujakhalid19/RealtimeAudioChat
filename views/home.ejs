@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const ROOM_ID = "<%= user %>"
+        alert(ROOM_ID)
+
+        var url='http://'+window.location.hostname+':3030/voice/71166baa-5a7e-45e0-86a9-7671aa6a78dc';
+        console.warn(url)
+        
+    </script>
+</head>
+<body>
+    <a id='an' href="#">Go here</a>
+</body>
+<script>
+    document.getElementById('an').href=url;
+</script>
+</html>

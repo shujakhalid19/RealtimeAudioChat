@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const ROOM_ID = "<%= roomId %>"
+        const USER_ID = "<%= userId %>"
+        const USER = "<%= user %>"
+        const ADMIN="<%= admin %>"
+        const ADMIN_ID="<%= ownerId %>"
+        const OWNER="<%= owner %>"
+        console.log('admin:'+owner);
+
+    </script>
+    <script src="../moment.min.js" defer></script>
+    <script src="../hark.js" defer></script>
+    <script defer src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script src="../socket.io/socket.io.js" defer></script>
+    <script src="../soundmeter.js" defer></script>
+    <script src="../audioscript.js" defer></script>
+        <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+    <link rel="stylesheet" href="../ui.css">
+    <style>
+        /* Safari syntax */
+:-webkit-full-screen {
+  width:100%;
+}
+
+/* IE11 */
+:-ms-fullscreen {
+    width:100%;
+}
+
+/* Standard syntax */
+:fullscreen {
+    width:100%;
+}
+
+.container-fluid{
+  overflow-x:hidden;
+}
+div::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+div::-webkit-scrollbar-thumb {
+    background:#20202011;
+}html,body{
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#chats{
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+
+        #video-grid >video{
+            width:80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        input{
+            border:none;
+        }
+
+        .btn-silent {
+            background-color: #393939;
+        }    
+
+        input:focus{
+            outline:none;
+        }
+
+
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 350px) {
+            .chat-box-show{
+                display: block;
+                position: absolute;
+                top:0;
+                width:100%;
+                z-index:+999999;
+                background-color: #101010;
+            }
+        }
+
+        @media only screen and (max-width: 650px) {
+            .chat-box-show{
+                display: block;
+                position: absolute;
+                top:0;
+                width:100%;
+                z-index:+999999;
+                background-color: #101010;
+            }
+        }
+        
+    </style>
+    <script>
+        
+
+    </script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="hidden-xs full-h bd-rt col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <h3 class="b md-btm-40 ">Notifications</h3>
+                <div id="audits" class="col-xs-12 col-sm-12 col-md-12">
+                    
+                    
+                </div>
+            </div>
+
+            <div class="full-h bd-rt col-xs-12 col-sm-12 col-md-6 col-lg-6 pd-0">
+<!-- //TOP BAR -->
+<div class="panel-group">
+    <div class="panel panel-silent bg-dark">
+      <div class="panel-heading">
+        <a data-toggle="collapse" href="#collapse1" style="color:inherit;text-decoration: none;">
+            <h4>
+                <div class="b"><%= room_name %> <span class="pull-right f-20 "><i class="fa fa-caret-down"></i></span></div>
+                <div class="f-12 pd-top-10"><span class="text-muted">created by </span>@<%= owner %></div>
+                
+            </h4>
+        </a>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse pd-10">
+        <p class="text-muted f-15 md-top-20 "> Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit repellat incidunt, ad esse in accusantium aperiam, ut temporibus nostrum sunt velit laudantium aliquam alias assumenda mollitia obcaecati quisquam cum eaque!</p>
+      </div>
+    </div>
+  </div>
+  
+
+                <div id="gp-notifs" class="hide col-xs-12 col-sm-12 col-md-8 pull-right bg-grey pd-10">
+                    <h4>
+                        <span class="pull-left">Requests</span>
+                        <button class="pull-right btn btn-xs btn-primary">Allow All</button>
+                    </h4>
+                    <div class="col-xs-12 col-sm-12 col-md-12 pd-0">
+                        <br/><br/>
+                        <div class="col-xs-12 col-sm-12 col-md-12 pd-0 md-btm-40" style="display: flex;">
+                            <img src="https://picsum.photos/id/23/200/300" class="prof" style="width: 40px;height: 40px;">
+                            <div class="pd-lt-10">Group
+                                <div class="text-muted f-12">Requested to join speakers</div>
+                            </div>
+                            <div style="margin-left: auto;">
+                                <button class="btn btn-md btn-pill"><i class="fa fa-check"></i></button>
+                                <button class="btn btn-md btn-pill"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+<!-- //TOP BAR -->
+<!-- STAGE -->
+
+                <div id="video-grid" class="col-xs-12 col-sm-12 col-md-12 pd-top-10">
+                    <div class="text-center col-xs-3 col-sm-3 col-md-2">
+                        <img src="https://picsum.photos/id/123/200/300" class="prof" style="width:60px;height: 60px;"/>
+                        <h5>shujakhalid</h5>
+                    </div>
+
+                    <div class="text-center col-xs-3 col-sm-3 col-md-2">
+                        <div >
+                            <div class="notif">
+                                <img src="https://picsum.photos/id/112/200/300" class="prof speaking" style="width:60px;height: 60px;"/>
+                                <span class="badge badge-btm"><i class="fa fa-microphone"></i></span>
+                            </div>
+                            <h5 class="notif">
+                                <span class="badge badge-top"><i class="fa fa-crown"></i></span>
+                                 shujakhalid 
+                            </h5>    
+                        </div>
+                        
+                    </div>
+                
+                        <div class="text-center col-xs-3 col-sm-3 col-md-2">
+                            <div class="notif">
+                                <img src="https://picsum.photos/id/122/200/300" class="prof speaking" style="width:60px;height: 60px;"/>
+                                <span class="badge badge-btm"><i class="fa fa-microphone"></i></span>
+                            </div>
+                            <h5 class="notif">
+                                <span class="badge badge-top"><i class="fa fa-crown"></i></span>
+                                 shujakhalid 
+                            </h5>    
+                        </div>
+
+                        <div class="text-center col-xs-3 col-sm-3 col-md-2" data-toggle="modal" data-target="#myModalTest">
+                            <img src="https://picsum.photos/id/42/200/300" class="prof" style="width:60px;height: 60px;"/>
+                            <h5>shujakhalid</h5>
+                        </div>
+                
+
+                </div>
+<!-- //STAGE -->
+
+<!-- Listeners -->
+<div class="col-xs-12 col-sm-12 col-md-12 md-top-20">
+    <h4>Audience</h4>
+    <div id="listeners" class="md-top-20">
+        <div class="text-center col-xs-3 col-sm-3 col-md-2">
+            <div class="notif">
+                <img src="https://picsum.photos/id/122/200/300" class="prof" style="width:60px;height: 60px;"/>
+            </div>
+            <h5 class="notif">
+                <span class="badge badge-rt"><i class="fa fa-hand-paper"></i></span>
+                 shujakhalid 
+            </h5>    
+        </div>
+    </div>
+    
+</div>
+<!-- //Listeners -->
+
+<!-- Controls -->
+                    <div class="bg-dark col-xs-12 col-sm-12 col-md-12 pd-10" style="justify-content: space-around;position:absolute;top:auto;bottom:0px;">
+                        <!-- <div onclick="muteUnmute()" class="main__controls__button main__mute_button btn-silent text-center f-20" style="display: inline-block; width:40px;height:40px;border-radius: 8px;padding:10px 0px 0px 0px;"><i class="fas fa-microphone"></i></div>
+                        <div onclick="muteUnmute()" class="main__controls__button main__mute_button btn-silent text-center f-20" style="display: inline-block; width:40px;height:40px;border-radius: 8px;padding:10px 0px 0px 0px;margin-left: 20px;"><i class="fas fa-microphone"></i></div>
+                        <div onclick="muteUnmute()" class="main__controls__button main__mute_button btn-silent text-center f-20" style="display: inline-block; width:40px;height:40px;border-radius: 8px;padding:10px 0px 0px 0px;margin-left: 20px;"><i class="fas fa-microphone"></i></div> -->
+                        <button class="f-20 btn btn-md btn-silent hidden-xs md-rt-10" onclick="toggleFullScreen()"><i class="fas fa-expand"></i></button>
+                        <!-- <button class="btn btn-lg btn-silent md-rt-10" onclick="riseup()"><i class="fa fa-hand-paper "></i></button> -->
+                        <button class="btn btn-lg btn-silent hidden-md hidden-lg md-rt-10" onclick="window.location.hash='Chat'"><i class="fas fa-comment-alt"></i></button>
+                        <button onclick="muteUnmute()" class="main__controls__button main__mute_button btn btn-lg btn-silent md-rt-10"><i class="fas fa-microphone"></i></button>
+                        <button class="btn btn-md btn-silent pull-right f-15" style="display: inline-block;height:40px;border-radius: 8px;"><i class="fas fa-hand"></i> Leave</button>    
+                    </div>
+<!-- //Controls -->
+
+
+            </div>
+            
+            <div class="hidden-xs chat-box full-h bd-rt col-xs-12 col-sm-12 col-md-3  col-lg-3">
+                <h3 class="b md-btm-40 ">Chats</h3>
+                <div id="chats" style="height:80%; overflow-y:scroll;overflow-x:hidden;padding-bottom:50px;">
+                    <div class="message"></div>
+                </div>
+                <div class="pd-10 bg-grey" style="width:90%; position:absolute;top:auto;bottom:10px;border-radius:4px;">
+                    <input type="text" placeholder="your message.." style="background-color: transparent; color:#fff;;">
+                    <span class="pd-5 pull-right fa fa-send"></span>
+                </div>
+                    
+            </div>
+        </div>
+
+    </div>
+
+                        
+
+                    <!-- Modal -->
+<div id="myModalTest" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content bg-grey">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+          <h4 class="modal-title">Modal Header</h4> -->
+            <div class="col-xs-12 col-sm-12 col-md-12 pd-0 md-btm-20" style="display: flex;">
+                <img src="https://picsum.photos/id/23/200/300" class="prof" style="width:60px;height: 60px;">
+                <h4 class="b pd-lt-10">Group
+                    <div class="f-12">
+                        <br/>
+                        <span>23 Followers</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                         <span>23 Followers</span>
+                    </div>
+                </h4>
+                <div style="margin-left: auto;">
+                    <button class="btn btn-md btn-primary">Follow</button>
+                </div>
+            </div>  
+            <div class="f-12 md-btm-40">
+                Lorem ipsum sut amore dolor vesto.
+            </div>
+
+            <div>
+                <h5 class="text-muted f-15 md-btm-20" style="display: flex;">Volume
+                    <div id="player" class="col-xs-12 col-sm-12 col-md-8 pull-right">
+                        <i class="fa fa-volume-down"></i>
+                        <div id="volume"></div>
+                        <i class="fa fa-volume-up"></i>
+                    </div>
+                </h5>
+                <div>
+                    <button class="btn btn-md btn-pill">Mute</button>
+                    <%if (admin) { %>
+                        <button class="btn btn-md btn-pill">Remove from Chat</button>
+                    <% } %>
+                    <button class="btn btn-md btn-pill">Send to listeners</button>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        
+      </div>
+  
+    </div>
+  </div>
+
+
+  <!-- MODAL USER -->
+                      <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content bg-grey">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
+          <h4 class="modal-title">Modal Header</h4> -->
+            <div class="col-xs-12 col-sm-12 col-md-12 pd-0 md-btm-20" style="display: flex;">
+                <img src="https://picsum.photos/id/23/200/300" class="prof" style="width:60px;height: 60px;">
+                <h4 class="b pd-lt-10"><span id="av_name">Group</span>
+                    <div class="f-12">
+                        <br/>
+                        <span>23 Followers</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                         <span>23 Followers</span>
+                    </div>
+                </h4>
+                <div id="action" style="margin-left: auto;">
+                    <!-- <button class="btn btn-md btn-primary">Follow</button> -->
+                </div>
+            </div>  
+            <div class="f-12 md-btm-40">
+                Lorem ipsum sut amore dolor vesto.
+            </div>
+
+            <div>
+                <!-- <h5 class="text-muted f-15 md-btm-20" style="display: flex;">Volume
+                    <div id="player" class="col-xs-12 col-sm-12 col-md-8 pull-right">
+                        <i class="fa fa-volume-down"></i>
+                        <div id="volume"></div>
+                        <i class="fa fa-volume-up"></i>
+                    </div>
+                </h5> -->
+                <div id="controls">
+                    <button class="btn btn-md btn-pill">Mute</button>
+                    <%if (admin) { %>
+                        <button id="remove_user" class="btn btn-md btn-pill">Remove from Chat</button>
+                    <% } %>
+                    <button class="btn btn-md btn-pill">Send to listeners</button>
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        
+      </div>
+  
+    </div>
+  </div>
+  <!-- //MODAL USER -->
+</body>
+<script src="../client.js"></script>
+
+<script>
+    $("#volume").slider({
+  	min: 0,
+  	max: 100,
+  	value: 15,
+		range: "min",
+  	slide: function(event, ui) {
+    	setVolume(ui.value / 100);
+  	}
+	});
+	
+	var myMedia = document.createElement('audio');
+	$('#player').append(myMedia);
+	myMedia.id = "myMedia";
+
+	//playAudio('http://emilcarlsson.se/assets/Avicii%20-%20The%20Nights.mp3', 0);
+	
+	function playAudio(fileName, myVolume) {
+			myMedia.src = fileName;
+			myMedia.setAttribute('loop', 'loop');
+    	setVolume(myVolume);
+    	myMedia.play();
+	}
+	
+	function setVolume(myVolume) {
+        var myMedia = document.getElementById('myMedia');
+        myMedia.volume = myVolume;
+	}
+
+</script>
+<script>
+    var hash = window.location.hash;
+    
+
+var x = window.matchMedia("(max-width: 700px)")
+    
+x.addListener(myFunction)
+
+
+    if (window.history && window.history.pushState) {
+        $(window). on('popstate', function(event) { 
+          hash = window.location.hash;
+          console.log(hash);
+           if(hash=='#Chat'){
+            $('.chat-box').toggleClass('hidden-xs chat-box-show');
+            //myFunction(x,false,'msgBox');//if true then show
+            
+           }else if(hash=="#touch"){
+            myFunction(x,false,'right-bar');//if true then show
+            myFunction(x,true,'msgBox');
+           }else if(hash=='#profile'){
+            //alert('asd');
+            //myFunction(x,false,'msgBox');//if true then show
+            myFunction(x,true,'right-bar');//if true then show
+          }else{
+            $('.chat-box').toggleClass('hidden-xs chat-box-show');
+            //myFunction(x,false,'right-bar');//if true then show
+            //myFunction(x,!true,'msgBox');
+          }
+         
+         });
+        //page reload 
+        if(hash=='#profile'){
+            myFunction(x,true,'right-bar');//if true then show
+        }else if(hash=="#touch"){
+            alert('qqqqasd');
+           }else if(hash=='#home'){
+            //alert('qasd');
+          myChat();  
+        }else{
+        }
+    }
+
+    function myFunction(x,hash) {
+        if (x.matches) { // If media query matches
+            $('.chat-box').addClass('hidden-xs');
+        } else {
+            //large device
+            //document.body.style.backgroundColor = "pink";
+        }
+
+    }
+      
+</script>
+</html>
